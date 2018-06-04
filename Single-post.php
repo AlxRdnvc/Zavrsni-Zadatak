@@ -34,6 +34,6 @@
                 </ol>
                 <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
             </div><!-- /.blog-post -->
-            <?php include "Partials/Sidebar.php" ?>
+            <!-- <?php include "Partials/Sidebar.php" ?> -->
     <?php include "Partials/Footer.php" ?>
 </div>

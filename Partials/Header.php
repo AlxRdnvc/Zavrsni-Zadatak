@@ -20,7 +20,7 @@
 </head>
 
 <body>
-
+<?php include "Partials/sql-connection.php" ?>
 <header>
     <div class="blog-masthead navbar" >
         <div class="container">
