@@ -1,0 +1,20 @@
+* {
+    font-size: 14px;
+}
+
+.navbar {
+    background-color: #b34848;
+}
+
+h1, h2, h3, h4 {
+    color: #b34848;
+}
+
+.simpleBlogTitle {
+    color: #b34848;
+    font-size: 2.5rem;
+}
+
+.simpleBlogTitle:hover {
+    color: #b34848;
+}
