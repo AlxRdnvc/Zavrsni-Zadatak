@@ -4,13 +4,15 @@
     <div class="sidebar-module sidebar-module-inset">
         <h4>Latest Posts</h4>
     </div>
-    <?php
-        foreach ($posts as $post) {              
-    ?>
-        <h4><a href="single-post.php?id=<?php echo($post['Id']) ?>"><?php echo($post['Title']) ?></a></h4>
-    <?php 
-    } 
-    ?>
+    <div class="sidebar-module">
+        <?php
+            foreach ($posts as $post) {              
+        ?>
+            <h4><a href="single-post.php?id=<?php echo($post['Id']) ?>"><?php echo($post['Title']) ?></a></h4>
+        <?php 
+        } 
+        ?>
+    </div>
 
 
 

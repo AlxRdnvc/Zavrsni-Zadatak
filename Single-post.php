@@ -47,43 +47,58 @@
 
 
 ?>
+<div class="row">
+    <div class="col-sm-8 blog-main">
+        <div class="blog-post">
+            <div>
+                <h2><?php echo $join[0]["Title"] ?></h2>
+                <p><?php echo($join[0]["Created_at"]) . ' by ' . ($join[0]["postAuthor"]); ?></p></br>
+                <p><?php echo($join[0]["Body"]) ?></p></br>
+            </div> 
+            <div>
+            <h2>PHP Form Validation Example</h2>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    Name: </br><input type="text" name="name" value="<?php echo $name;?>"></br></br>
+                    <span class="error"><?php echo $nameErr;?></span>
+                    Comment: </br><textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
+                    <br><br>
+                </form>
+            </div>
+            <div>
+                <button class="btn btn-default" id="button">Hide comments!</button>
+            </div> 
+            <div id="commentsDiv">
+                <script>
+                    var btn = document.getElementById('button');
 
-<div class="col-sm-8 blog-main">
-    <div>
-        <h2><?php echo $join[0]["Title"] ?></h2>
-        <p><?php echo($join[0]["Created_at"]) . ' by ' . ($join[0]["postAuthor"]); ?></p></br>
-        <p><?php echo($join[0]["Body"]) ?></p></br>
-        <button class="btn btn-default" id="button">Hide comments!</button>
-    </div> 
-    <div id="commentsDiv">
-        <script>
-            var btn = document.getElementById('button');
-
-            btn.addEventListener('click',function(){
-                var x = document.getElementById("commentsDiv");
-                var y = document.getElementById("button");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                    } 
-                if (y.innerHTML === "Hide comments!") {
-                    y.innerHTML = "Show comments!";
+                    btn.addEventListener('click',function(){
+                        var x = document.getElementById("commentsDiv");
+                        var y = document.getElementById("button");
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                            } 
+                        if (y.innerHTML === "Hide comments!") {
+                            y.innerHTML = "Show comments!";
+                        } 
+                    })
+                </script>
+                <?php
+                    foreach ($join as $comment) {              
+                ?>
+                    <ul>
+                        <li>
+                            <p><?php echo($comment["commentAuthor"]) ?></br>
+                            <p><?php echo($comment["Text"]) ?></p><hr>
+                        </li>
+                    </ul>
+                <?php 
                 } 
-            })
-        </script>
-        <?php
-            foreach ($join as $comment) {              
-        ?>
-            <ul>
-                <li>
-                    <p><?php echo($comment["commentAuthor"]) ?></br>
-                    <p><?php echo($comment["Text"]) ?></p><hr>
-                </li>
-            </ul>
-        <?php 
-        } 
-        ?>
-    </div> <!-- comentsDiv -->
-</div> <!-- comentsDiv -->
+                ?>
+            </div> <!-- comentsDiv -->
+        </div> <!-- blog-post -->
+    </div>  <!-- blog-main -->
+<?php include "Partials/Sidebar.php" ?>
+</div><!-- /.row -->
 <?php include "Partials/Footer.php" ?>

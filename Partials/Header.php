@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,13 +16,12 @@
 
     <!-- Custom styles for this template -->
     <link href="styles/blog.css" rel="stylesheet">
-    <link href="styles/styles.css" rel="stylesheet">
-
 </head>
 
 <body>
+
 <header>
-    <div class="blog-masthead navbar" >
+    <div class="blog-masthead">
         <div class="container">
             <nav class="nav">
                 <a class="nav-link active" href="#">Home</a>
@@ -41,7 +41,4 @@
     </div>
 </header>
 
-
 <main role="main" class="container">
-
-<div class="row">

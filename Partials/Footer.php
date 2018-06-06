@@ -1,6 +1,3 @@
-</div><!-- /.row -->
-<?php include "Partials/Sidebar.php" ?>
-
 </main><!-- /.container -->
 
 <footer class="blog-footer">
