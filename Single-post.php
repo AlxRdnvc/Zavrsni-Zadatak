@@ -1,39 +1,70 @@
 <?php include "Partials/Header.php" ?>
 
+<?php
+    $servername = "Localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "blog";
+
+    try {
+        $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+
+?>
+
+<?php
+ //uzimamo id iz url-a
+ $id = $_GET['id'];
+
+ // pripremamo upit
+ $sql = "SELECT posts.Id, posts.Title, posts.Body, posts.Author as postAuthor, posts.Created_at, comments.Id, comments.Author as commentAuthor, comments.Text, comments.Post_id 
+ FROM posts INNER JOIN comments ON posts.Id = comments.Post_id
+ WHERE posts.Id=$id";
+ $statement = $connection->prepare($sql);
+
+ // izvrsavamo upit
+ $statement->execute();
+
+ // zelimo da se rezultat vrati kao asocijativni niz.
+ // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+ $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+ // punimo promenjivu sa rezultatom upita
+ $join = $statement->fetchAll();
+
+ // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+      /*
+     echo '<pre>';
+     var_dump($posts);
+     echo '</pre>';
+     */
+
+
+?>
+
 <div class="col-sm-8 blog-main">
+    <h2><?php echo $join[0]["Title"] ?></h2>
+    <p><?php echo($join[0]["Created_at"]) . ' by ' . ($join[0]["postAuthor"]); ?></p></br>
+    <p><?php echo($join[0]["Body"]) ?></p>
 
-            <div class="blog-post">
-                <h2 class="blog-post-title">Sample blog post</h2>
-                <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+    <?php
+        foreach ($join as $comment) {              
+    ?>
+        <ul>
+            <li>
+                <p><?php echo($comment["commentAuthor"]) ?></br>
+                <p><?php echo($comment["Text"]) ?></p>
+            </li>
+        </ul>
+    <?php 
+    } 
+    ?>
 
-                <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-                <hr>
-                <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                <blockquote>
-                    <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </blockquote>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                <h2>Heading</h2>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                <h3>Sub-heading</h3>
-                <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                <pre><code>Example code block</code></pre>
-                <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-                <h3>Sub-heading</h3>
-                <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <ul>
-                    <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                    <li>Donec id elit non mi porta gravida at eget metus.</li>
-                    <li>Nulla vitae elit libero, a pharetra augue.</li>
-                </ul>
-                <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-                <ol>
-                    <li>Vestibulum id ligula porta felis euismod semper.</li>
-                    <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-                    <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-                </ol>
-                <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-            </div><!-- /.blog-post -->
-            <!-- <?php include "Partials/Sidebar.php" ?> -->
-    <?php include "Partials/Footer.php" ?>
 </div>
+<?php include "Partials/Footer.php" ?>
