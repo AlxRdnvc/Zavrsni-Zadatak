@@ -21,7 +21,7 @@
 <?php
 
 // pripremamo upit
-$sql = "SELECT Id, Title, Created_at, Author, Body FROM posts ORDER BY created_at DESC LIMIT 4";
+$sql = "SELECT Id, Title, Created_at, Author, Body FROM posts ORDER BY created_at DESC LIMIT 5";
 $statement = $connection->prepare($sql);
 
 // izvrsavamo upit

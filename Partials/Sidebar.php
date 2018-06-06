@@ -1,9 +1,24 @@
+<?php include "Partials/sql-connection.php" ?>
+
 <aside class="col-sm-3 ml-sm-auto blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
-        <h4>About</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <h4>Latest Posts</h4>
     </div>
-    <div class="sidebar-module">
+    <?php
+        foreach ($posts as $post) {              
+    ?>
+        <h4><a href="single-post.php?id=<?php echo($post['Id']) ?>"><?php echo($post['Title']) ?></a></h4>
+    <?php 
+    } 
+    ?>
+
+
+
+
+
+
+
+    <!-- <div class="sidebar-module">
         <h4>Archives</h4>
         <ol class="list-unstyled">
             <li><a href="#">March 2014</a></li>
@@ -27,5 +42,5 @@
             <li><a href="#">Twitter</a></li>
             <li><a href="#">Facebook</a></li>
         </ol>
-    </div>
+    </div> -->
 </aside><!-- /.blog-sidebar -->
