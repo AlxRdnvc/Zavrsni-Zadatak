@@ -49,22 +49,41 @@
 ?>
 
 <div class="col-sm-8 blog-main">
-    <h2><?php echo $join[0]["Title"] ?></h2>
-    <p><?php echo($join[0]["Created_at"]) . ' by ' . ($join[0]["postAuthor"]); ?></p></br>
-    <p><?php echo($join[0]["Body"]) ?></p>
+    <div>
+        <h2><?php echo $join[0]["Title"] ?></h2>
+        <p><?php echo($join[0]["Created_at"]) . ' by ' . ($join[0]["postAuthor"]); ?></p></br>
+        <p><?php echo($join[0]["Body"]) ?></p></br>
+        <button class="btn btn-default" id="button">Hide comments!</button>
+    </div> 
+    <div id="commentsDiv">
+        <script>
+            var btn = document.getElementById('button');
 
-    <?php
-        foreach ($join as $comment) {              
-    ?>
-        <ul>
-            <li>
-                <p><?php echo($comment["commentAuthor"]) ?></br>
-                <p><?php echo($comment["Text"]) ?></p>
-            </li>
-        </ul>
-    <?php 
-    } 
-    ?>
-
-</div>
+            btn.addEventListener('click',function(){
+                var x = document.getElementById("commentsDiv");
+                var y = document.getElementById("button");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                    } 
+                if (y.innerHTML === "Hide comments!") {
+                    y.innerHTML = "Show comments!";
+                } 
+            })
+        </script>
+        <?php
+            foreach ($join as $comment) {              
+        ?>
+            <ul>
+                <li>
+                    <p><?php echo($comment["commentAuthor"]) ?></br>
+                    <p><?php echo($comment["Text"]) ?></p><hr>
+                </li>
+            </ul>
+        <?php 
+        } 
+        ?>
+    </div> <!-- comentsDiv -->
+</div> <!-- comentsDiv -->
 <?php include "Partials/Footer.php" ?>
