@@ -1,12 +1,13 @@
 * {
     font-size: 14px;
+    color: #999;
 }
 
-.navbar {
+.blog-masthead {
     background-color: #b34848;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
     color: #b34848;
 }
 
@@ -18,3 +19,23 @@ h1, h2, h3, h4 {
 .simpleBlogTitle:hover {
     color: #b34848;
 }
+
+ul li {
+    list-style: none;
+}
+
+.btn {
+    background-color: #b34848;
+    margin-bottom: 20px;
+}
+
+button p {
+    margin: 0;
+    color: #fff;
+}
+
+button p:hover {
+    cursor: pointer;
+}
+
+.error {color: #FF0000;}

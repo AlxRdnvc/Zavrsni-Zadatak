@@ -23,8 +23,8 @@
  $id = $_GET['id'];
 
  // pripremamo upit
- $sql = "SELECT posts.Id, posts.Title, posts.Body, posts.Author as postAuthor, posts.Created_at, comments.Id, comments.Author as commentAuthor, comments.Text, comments.Post_id 
- FROM posts INNER JOIN comments ON posts.Id = comments.Post_id
+ $sql = "SELECT posts.Id as postId, posts.Title, posts.Body, posts.Author as postAuthor, posts.Created_at, comments.Id as commentId, comments.Author as commentAuthor, comments.Text, comments.Post_id 
+ FROM posts LEFT JOIN comments ON posts.Id = comments.Post_id
  WHERE posts.Id=$id";
  $statement = $connection->prepare($sql);
 
@@ -56,16 +56,29 @@
                 <p  class="blog-post-meta"><?php echo($join[0]["Body"]) ?></p></br>
             </div> 
             <div>
-            <h2>PHP Form Validation Example</h2>
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                    <p  class="blog-post-meta">Name:</p></br><input type="text" name="name" value="<?php echo $name;?>"></br></br>
+
+
+            <h5>Dodaj komentar:</h5>
+                <form method="POST" action="create-comment.php">
+                    <input type='hidden' name='Id' value='<?php echo $id;?>'>
+                    <p>Name:</p><input type='text' name='name' value='<?php echo $name;?>'>
                     <span class="error"><?php echo $nameErr;?></span>
-                    <p  class="blog-post-meta">Comment:</p></br><textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
-                    <br><br>
+                    <p>Comment:</p><textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea></br>
+                    <span class="error"><?php echo $commentErr;?></span>
+                    <button type='submit' name='submit' class="btn btn-default"><p>Send comment!</p></button>
                 </form>
+
+                <?php if (isset($_GET['error'])) { ?>
+                    <div class="alert-danger">All fields are requried!</div> 
+                <?php } ?>
             </div>
+
+            <?php if (isset($_GET['message'])) { ?>
+                 <div class="alert-danger">Comment has been successfully deleted</div></br>
+            <?php } ?>
+
             <div>
-                <button class="btn btn-default" id="button">Hide comments!</button>
+                <button class="btn btn-default" id="button"><p>Hide comments!</p></button>
             </div> 
             <div id="commentsDiv">
                 <script>
@@ -89,8 +102,13 @@
                 ?>
                     <ul>
                         <li>
-                            <p><?php echo($comment["commentAuthor"]) ?></br>
-                            <p><?php echo($comment["Text"]) ?></p><hr>
+                            <p><b><?php echo($comment["commentAuthor"]) ?></b></p>
+                            <p><?php echo($comment["Text"]) ?></p>
+                            <form method="POST" action="delete-comments.php">
+                                <input type='hidden' name="postId" value='<?php echo($comment["postId"]) ;?>'>
+                                <input type='hidden' name="commentId" value='<?php echo($comment["commentId"]) ;?>'>
+                                <button type="submit" name="delete" class="btn btn-default">Delete comment</button><hr>
+                            </form>
                         </li>
                     </ul>
                 <?php 
