@@ -14,25 +14,20 @@
         echo $e->getMessage();
     }
 
-    
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $text = $_POST['body'];
 
-
-    $postId = intval($_POST['Id']);
-    $name = $_POST['name'];
-    $comment = $_POST['comment'];
-    
-    if (empty($name) || empty($comment)) {
-        header('Location:Single-post.php?id='.$postId.'&error=1');
+    if (empty($title) || empty($author) || empty($text) ) {
+        header('Location: ../create-post.php?error=1');
         die;
     }
 
-    $sql = "INSERT INTO comments(Post_id, Author, Text) VALUES ($postId, '$name', '$comment')";
-
+    $sql = "INSERT INTO posts(Title, Author, Body) VALUES ('$title','$author','$text')";
 
     $statement = $connection->prepare($sql);
     $statement->execute();
 
-    header('Location:Single-post.php?id='.$postId);
 
 
-    ?>
+?>

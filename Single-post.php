@@ -61,7 +61,7 @@
             <h5>Dodaj komentar:</h5>
                 <form method="POST" action="create-comment.php">
                     <input type='hidden' name='Id' value='<?php echo $id;?>'>
-                    <p>Name:</p><input type='text' name='name' value='<?php echo $name;?>'>
+                    <p>Name:</p><input type='text' name="name" value='<?php echo $name;?>'>
                     <span class="error"><?php echo $nameErr;?></span>
                     <p>Comment:</p><textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea></br>
                     <span class="error"><?php echo $commentErr;?></span>
